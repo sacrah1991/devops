@@ -1,0 +1,12 @@
+- name: veriable script
+  hosts: all 
+  vars: 
+    URL: www.goggle.com
+    CLI_URL: local.goggle.com
+  tasks: 
+   - name: task1 
+     debug:
+       msg: my url is  url {{URL}}
+   - name: task 2
+     debug:
+       msg: url from cli {{CLI_URL}}
