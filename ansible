@@ -59,3 +59,35 @@ installing httpd
       service: name=httpd state=restarted
 
        
+       
+       
+       
+       
+       httpd install check status
+       
+       
+       
+       
+       - name: frist task
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: status
+      shell: systemctl status httpd
+      register: httpd_status
+
+    - name: httpd status check
+      debug:
+        msg: "{{httpd_status.stdout_lines}}"
+    
+    - name: copy file
+      copy: 
+        src: index.html 
+        dest: /var/www/html/
+
+    
