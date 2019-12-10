@@ -10,3 +10,30 @@
    - name: task 2
      debug:
        msg: url from cli {{CLI_URL}}
+       
+       
+       
+       script---2
+       
+       - name: veriable script
+  hosts: all 
+  vars_prompt:
+    - name:  P_URL
+      prompt: "enter p url value"
+      private: no
+  vars: 
+    URL: www.goggle.com
+  tasks: 
+    - name: task1 
+      debug:
+        msg: my url is  url {{URL}}
+      vars: 
+        URL: local.google.com
+
+    - name: task 2
+      debug:
+        msg: url from cli {{CLI_URL}}
+
+    - name: task 3
+      debug: 
+        msg: prompt url {{P_URL}}     
