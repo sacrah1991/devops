@@ -37,6 +37,37 @@
     - name: task 3
       debug: 
         msg: prompt url {{P_URL}}     
+        
+        DEPLOYMENT 
+        
+        - name: Deployment
+  hosts: all
+  become: yes
+  tasks:
+    - name: Shut down tomcat
+      shell: cd /opt/apache-tomcat-7.0.99/bin && ./shutdown.sh
+      register: shutdown_tomcat
+    - name: Tomcat shutdown logs
+      debug:
+        msg: "{{shutdown_tomcat}}"
+
+    - name: backup of logs
+      shell: tar -cvzf /opt/backup/`date +%M%H%d%b%Y`.tar.gz /opt/apache-tomcat-7.0.99/logs/catalina.out
+      register: backup_logs
+    - name: tomcat logs
+      debug:
+        msg: "{{backup_logs}}"
+    - name: Remove war
+      shell: rm -rf /opt/apache-tomcat-7.0.99/webapps/addressbook.war
+    - name: Deploy war
+      shell: cp -r /home/ubuntu/addressbook.war /opt/apache-tomcat-7.0.99/webapps/
+    - name: Start Tomcat
+      shell: cd /opt/apache-tomcat-7.0.99/bin && ./startup.sh
+      register: tomcat_started
+    - name: Tomcat log
+      debug:
+        msg: "{{tomcat_started}}"
+
 
 
 
