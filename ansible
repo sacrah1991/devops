@@ -121,4 +121,42 @@ installing httpd
         src: index.html 
         dest: /var/www/html/
 
+
+
+
+-----when condition-----
+
+
+
+- name: when condition
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing when os is ubuntu
+      debug:
+        msg: node os is {{ansible_distribution}}
+
+    - name: install when os is centos
+      debug:
+        msg: node os is {{ansible_distribution}}
+
+
+note:
+Sometimes you will want to skip a particular step on a particular host.
+This could be something as simple as not installing a certain package if the operating system is a particular version,
+or it could be something like performing some cleanup steps if a filesystem is getting full.
+This is easy to do in Ansible with the when clause, which contains a raw Jinja2 expression without double curly braces (see group_by – Create Ansible groups based on facts). It’s actually pretty simple
+
+
+
+
+
+
+
+
+
+
+
+
+
     
